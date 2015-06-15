@@ -4,7 +4,7 @@ from setuptools import find_packages, setup
 pkgname = "vdt.versionplugin.wheel"
 
 setup(name=pkgname,
-      version="0.0.2",
+      version="0.0.1",
       description="vdt.version plugin for building python wheels.",
       author="Lars van de Kerkhof",
       author_email="lars@devopsconsulting.nl",
