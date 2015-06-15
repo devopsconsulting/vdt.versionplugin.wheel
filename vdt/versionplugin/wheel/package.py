@@ -15,15 +15,7 @@ def build_package(version):
     def fixed_version_setup(*args, **kwargs):
         old_version = kwargs.pop('version')
         logging.info("Version in file is %s, using %s" % (old_version, version))
-        _setup(version=str(version), distclass=WheelRunningDistribution, *args, **kwargs)
+        _setup(version=str(version).replace('-', '.'), distclass=WheelRunningDistribution, *args, **kwargs)
 
-    with mock.patch('setuptools.setup'):
+    with mock.patch('setuptools.setup', fixed_version_setup):
         imp.load_source('packagesetup', 'setup.py')
-
-
-# def set_package_version(version):
-#     """
-#     If there need to be modifications to source files before a
-#     package can be built (changelog, version written somewhere etc.)
-#     that code should go here
-#     """
