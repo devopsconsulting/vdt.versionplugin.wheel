@@ -17,6 +17,7 @@ setup(name=pkgname,
       install_requires=[
           "setuptools",
           "vdt.version",
+          "vdt.versionplugin.default",
           "vdt.versionplugin.debianize",
           "mock",
           "wheel"
