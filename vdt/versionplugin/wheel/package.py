@@ -19,5 +19,6 @@ def build_package(version):
         logging.info("Version in file is %s, using %s" % (old_version, python_version))
         _setup(version=python_version, distclass=WheelRunningDistribution, *args, **kwargs)
 
-    with mock.patch('setuptools.setup', fixed_version_setup):
-        imp.load_source('packagesetup', 'setup.py')
+    with version.checkout_tag:
+        with mock.patch('setuptools.setup', fixed_version_setup):
+            imp.load_source('packagesetup', 'setup.py')
