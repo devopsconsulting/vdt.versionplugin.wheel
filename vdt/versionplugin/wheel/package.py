@@ -36,9 +36,9 @@ def build_package(version):
             imp.load_source('packagesetup', 'setup.py')
 
     if args.build_dependencies:
-        build_dir = "%s/dist" % os.getcwd()
+        build_dir = "%s/dist/" % os.getcwd()
         wheels = glob("%s/*.whl" % build_dir)
         cmd = ['pip', 'wheel'] + wheels
         logger.debug("Running command {0}".format(" ".join(cmd)))
-        logger.debug(subprocess.check_output(cmd), cwd=build_dir)
+        logger.debug(subprocess.check_output(cmd, cwd=build_dir))
     return 0
