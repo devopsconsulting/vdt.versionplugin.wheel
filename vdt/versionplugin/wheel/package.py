@@ -21,7 +21,9 @@ def build_package(version):
     def fixed_version_setup(*args, **kwargs):
         old_version = kwargs.pop('version')
         base_version = ".".join(map(str, version.version))
-        python_version = "%src%s" % (base_version, version.build_number)
+        python_version = base_version
+        if version.build_number is not None:
+            python_version = "%src%s" % (base_version, version.build_number)
         logging.info(
             "Version in file is %s, using %s" % (
                 old_version, python_version))
