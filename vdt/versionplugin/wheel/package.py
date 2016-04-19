@@ -31,16 +31,19 @@ def build_package(version):
             version=python_version,
             distclass=WheelRunningDistribution, *args, **kwargs)
 
-    args, extra_args = parse_version_extra_args(version.extra_args)
+    args, _ = parse_version_extra_args(version.extra_args)
 
+    # importing setup.py is like running it.
     with version.checkout_tag:
         with mock.patch('setuptools.setup', fixed_version_setup):
             imp.load_source('packagesetup', 'setup.py')
 
     if args.build_dependencies:
-        build_dir = "%s/dist/" % os.getcwd()
-        wheel = glob("%s/*.whl" % build_dir)
-        cmd = ['pip', 'wheel'] + wheel
+        build_dir = os.path.join(os.getcwd(), 'dist')
+        wheel = glob(os.path.join(build_dir, '*.whl'))
+        wheel.sort(key=os.path.getmtime, reverse=True)
+        cmd = ['pip', 'wheel'] + wheel[:1]
         logger.debug("Running command {0}".format(" ".join(cmd)))
         logger.debug(subprocess.check_output(cmd, cwd=build_dir))
+
     return 0
