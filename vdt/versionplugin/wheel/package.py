@@ -39,8 +39,8 @@ def build_package(version):
 
     if args.build_dependencies:
         build_dir = "%s/dist/" % os.getcwd()
-        wheels = glob("%s/*.whl" % build_dir)
-        cmd = ['pip', 'wheel'] + wheels
+        wheel = glob("%s/*.whl" % build_dir)
+        cmd = ['pip', 'wheel'] + wheel
         logger.debug("Running command {0}".format(" ".join(cmd)))
         logger.debug(subprocess.check_output(cmd, cwd=build_dir))
     return 0
