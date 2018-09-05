@@ -2,6 +2,7 @@ from glob import glob
 import imp
 import logging
 import os
+import shutil
 import subprocess
 
 import mock
@@ -35,6 +36,8 @@ def build_package(version):
 
     # importing setup.py is like running it.
     with version.checkout_tag:
+        if os.path.isdir('build'):
+            shutil.rmtree('build')
         with mock.patch('setuptools.setup', fixed_version_setup):
             imp.load_source('packagesetup', 'setup.py')
 
