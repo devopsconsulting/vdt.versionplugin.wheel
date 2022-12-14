@@ -5,7 +5,7 @@ pkgname = "vdt.versionplugin.wheel"
 
 setup(
     name=pkgname,
-    version="0.0.7",
+    version="0.0.8",
     description="vdt.version plugin for building python wheels.",
     author="Lars van de Kerkhof",
     author_email="lars@devopsconsulting.nl",
