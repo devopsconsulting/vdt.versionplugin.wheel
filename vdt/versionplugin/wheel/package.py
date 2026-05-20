@@ -1,5 +1,5 @@
 from glob import glob
-import imp
+import importlib.util
 import logging
 import os
 import shutil
@@ -39,7 +39,9 @@ def build_package(version):
         if os.path.isdir('build'):
             shutil.rmtree('build')
         with mock.patch('setuptools.setup', fixed_version_setup):
-            imp.load_source('packagesetup', 'setup.py')
+            spec = importlib.util.spec_from_file_location('packagesetup', 'setup.py')
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
 
     if args.build_dependencies:
         build_dir = os.path.join(os.getcwd(), 'dist')
